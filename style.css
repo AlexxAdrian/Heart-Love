@@ -1,0 +1,121 @@
+.display{
+  --width: 20rem;
+  --color: hsl(333 66% 75%);
+  --skew: 1rem;
+  --animation-duration: 10s;
+  aspect-ratio: 1/.5;
+  width: var(--width);
+  border-top-left-radius: 50% var(--skew);
+  border-top-right-radius: 50% var(--skew);
+  background:
+    radial-gradient( 100% 100%,
+      var(--color) calc(50% - 1px), #0000 calc(50% + 1px)
+    ) top center / 100% calc(var(--skew) * 2) no-repeat,
+    linear-gradient(  90deg,
+      color-mix(in oklch, var(--color), hsl(0 0% 100% / .75)),
+      #0000 40% 60%,
+      color-mix(in oklch, var(--color), hsl(0 0% 0% / .5))
+    ),
+    radial-gradient( 100% 100%,
+      color-mix(in oklch, var(--color), hsl(0 0% 20%)) calc(50% - 1px), #0000 calc(50% + 1px)
+    ) top center / 100% calc(var(--skew) * 2 + 7.5%) no-repeat,
+    repeating-linear-gradient(90deg,
+      #0000 0 1.25%, hsl(0 0% 0% / .125) 1.25% 2.5%
+    ) center left / 200% 100%,
+    var(--color);
+  box-shadow:
+    calc(var(--width) * .125) 
+    calc(var(--width) * .125) 
+    calc(var(--width) * .25) 
+    color-mix(in oklch, var(--color), hsl(0 0% 0% / .75));
+  animation: rotateBG calc(var(--animation-duration) / 2) linear infinite;
+  position: relative;
+  
+  >svg {
+    color: #e60023;
+    position: absolute;
+    width: 80%;
+    left: 10%;
+    bottom: calc(100% - var(--skew));
+    animation: rotateItem var(--animation-duration) linear infinite;
+  }
+}
+@keyframes rotateItem { to { rotate: y 360deg } }
+@keyframes rotateBG { to { background-position: -100% 0 } }
+
+html, body { height: 100% }
+body { 
+  margin: 0; 
+  background: hsl(327, 90%, 92%);
+  display: grid;
+  place-items: end center
+}
+
+h1 {
+  font-family: 'Arial', sans-serif;
+  font-size: 3em;
+  color: #ff69b4;
+  text-align: center;
+  margin-bottom: 280px;
+  position: relative;
+  animation: fadeIn 3s ease-in-out, colorChange 5s infinite;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    top: -20px;
+    bottom: 80px;
+  }
+  100% {
+    opacity: 1;
+    top: 0;
+  }
+}
+
+@keyframes colorChange {
+  0%, 100% {
+    color: #ff69b4;
+  }
+  25% {
+    color: #c63a3a;
+  }
+  50% {
+    color: #8a2be2;
+  }
+  75% {
+    color: #4b0082;
+  }
+}
+
+h1::before, h1::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #ff69b4);
+  animation: slideIn 3s ease-in-out;
+}
+
+h1::before {
+  left: 0;
+  transform: translateX(-100%);
+}
+
+h1::after {
+  right: 0;
+  transform: translateX(100%);
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateX(100%);
+  }
+  50% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
